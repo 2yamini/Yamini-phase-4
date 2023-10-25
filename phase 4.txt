@@ -1,0 +1,244 @@
+EARTHQUAKE  PREDICTION  MODEL  USING PYTHON 
+                    BATCH MEMBER 
+          TEAM-ID : Proj_272172_Team_2 
+
+              950621104114 : J.YAMINI 
+
+                 Phase 4 Submission Document 
+Project Title: Earthquake Prediction Model Using Python. 
+Phase 3: Development Part 2. 
+Topic: Continue building the earthquake prediction model by feature engineering, model training and evaluation. 
+ 
+                          EARTHQUAKE PREDICTION
+Introduction : 
+• The data scientist aiming to build a predictive model, the foundation of this endeavour lies in loading and preprocessing the dataset.
+ • In this section continue building the project by performing different activities like features engineering, model training, evaluation, etc.  
+GIVEN DATASET :
+ 
+Overview of the process : 
+ The following is an overview of the process of building a earthquake prediction model used by feature selection, model training, and evaluation. 
+1. Prepare the data:  
+This includes cleaning the data, removing outliers, and handling missing values. 
+2. Perform feature selection : 
+     This can be done using a variety of methods, such as correlation analysis, information gain, and recursive features elimination. 
+3. Train the model : 
+There are many different machine learning algorithms that can be used for house price prediction. Some popular choices include linear regression, random forests, SVR. 
+4. Evaluate the model : 
+This can be done by calculating the mean squared error(MSE) or the root mean squared error (RMSE) of the model’s predictions on the held-out test set. 
+5. Deploy the model : 
+Once the model has been evaluating and found to be performing well, it can be deployed to production so that it can be used to predict the earthquake. 
+Features Selection : 
+Checking for missing values  
+In[1]: 
+print("Missing values") 
+print("-" *30) 
+print(df.isna().sum()) 
+print("-"*30) 
+print("Total missing values", df.isna().sum()) 
+Out[1]:
+ 
+Model Training : 
+1. Choose a machine learning algorithm : There are a number of different machine learning algorithm that can be for earthquake prediction, such as linear regression, ridge regression, lasso regression, decision trees, and random forests are covered. 
+Machine Learning Models:
+In[2]: 
+         new_row = {"Model": "Ridge", "MAE":mae, "MSE": mse,"RMSE":rmse,    "R2 Score": r_squared, "RMSE(Cross-Validation)":rmse_cross_val} 
+         models = models.append(new_row, ignore_index=True) 
+In[3]: 
+def evaluation(y_true, y_pred): 
+    # calculate MAE 
+    mae = mean_absolute_error(y_true, y_pred) 
+    # calculate MSE 
+    mse = mean_squared_error(y_true, y_pred) 
+    # calculate RMSE 
+    rmse = np.sqrt(mse) 
+    rmse_cross_val = np.mean(rmse) 
+    # calculate R-squared score 
+    r_squared = r2_score(y_true, y_pred) 
+    # return the four metrics as a tuple 
+    return mae, mse, rmse, r_squared, rmse_cross_val 
+Linear Regression : 
+In[4]: 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) 
+lin_reg = LinearRegression() 
+lin_reg.fit(X_train, y_train) 
+predictions = lin_reg.predict(X_test) 
+mae, mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("-" *30) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[4]:
+ 
+Ridge Regression : 
+In[5]: 
+ridge = Ridge() 
+ridge.fit(X_train, y_train) 
+predictions = ridge.predict(X_test) 
+mae,mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[5]:
+ 
+ 
+ 
+Lasso Regression: 
+In[6]: 
+lasso = Lasso() 
+lasso.fit(X_train, y_train) 
+predictions = lasso.predict(X_test) 
+mae,mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("-" *30) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[6]:
+ 
+ 
+Elastic Net: 
+In[7]: 
+elasticnet = ElasticNet() 
+elasticnet.fit(X_train, y_train) 
+predictions = elasticnet.predict(X_test) 
+mae,mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("-" *30) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[7]: 
+ 
+ 
+Support Vector Machines: 
+In[8]: 
+svr = SVR(C=100000) 
+svr.fit(X_train,y_train) 
+predictions = svr.predict(X_test) 
+mae,mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("-" *30) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[8]: 
+ 
+ 
+Polynomial Regression (Degree= 2): 
+In[10]: 
+poly_reg = PolynomialFeatures(degree =2) 
+X_train_2d = poly_reg.fit_transform(X_train) 
+X_test_2d = poly_reg.transform(X_test) 
+lin_reg = LinearRegression() 
+lin_reg.fit(X_train_2d, y_train) 
+predictions = lin_reg.predict(X_test_2d) 
+mae,mse, rmse, r_squared,rmse_cross_val = evaluation(y_test, predictions) 
+print("MAE:",mae) 
+print("MSE:",mse) 
+print("RMSE:",rmse) 
+print("R2 Score:",r_squared) 
+print("-" *30) 
+print("RMSE Cross-Validation:",rmse_cross_val) 
+Out[10]: 
+ 
+ 
+Model Training : 
+? Model training is the process of teaching a machine learning model to predict earthquake. 
+ ? Once the model is trained, it can be used to predict earthquake for new data.
+ 1. Prepare the data. 
+2. Split the data into training and test sets.
+ 3. Choose a machine learning algorithm. 
+4. Tune the hyperparameters of the algorithm.
+ 5. Train the model on the training set. 
+6. Evaluate the model on the test set. 
+Split the data into train and test : 
+In[11]: 
+X = df[['Latitude', 'Longitude', 'Magnitude','Magnitude Error', 'Magnitude Seismic Stations', 'Azimuthal Gap', 'Horizontal Distance', 'Horizontal Error', 'Root Mean Square', 'Depth Error']] 
+Y = df['Depth'] 
+In[12]: 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) 
+In[13]: 
+y_train.head() 
+Out[13]: 
+ 
+In[14]: 
+y_train.shape 
+Out[14]:
+ 
+In[15]: 
+y_test.head() 
+Out[15]:
+ 
+In[16]: 
+Y_test.shape 
+Out[16]: 
+ 
+ 
+Model Evaluation: 
+• It is the process of assessing the performance of a machine learning model on the unseen data.
+ • There are a number of different metrices that can be used to evaluate the performance of a earthquake prediction model. 
+Some of the most common metrics are: 
+? Mean Squared Error(MSE): This metric measures the average squared difference between the predicted and actual earthquake. 
+? Root Mean Squared Error(RMSE): This metric is the square root of the MSE. 
+? Mean Absolute Error: This metric measures the average absolute difference between the predicted and actual earthquake. 
+? R-Squared: This metric measures how well the model explains the variation in the actual earthquake happened. 
+Evaluation of Predicted Data : 
+In[17]: 
+plt.figure(figsize=(12,6)) 
+plt.plot(np.arange(len(y_test)), y_test) 
+plt.plot(np.arange(len(y_test)),predictions) 
+plt.xlabel("Latitude & Longitude") 
+plt.ylabel("Depth") 
+plt.title("Actual vs Prediction") 
+Out[17]: 
+ 
+ 
+In[18]: 
+lons = df["Longitude"] 
+lats = df["Latitude"] 
+mags = df["Magnitude"] 
+depths = df["Depth"] 
+fig, ax = plt.subplots(figsize=(12,8)) 
+m = Basemap(projection="mill", llcrnrlat=-90, urcrnrlat=90, 
+            llcrnrlon=-180, urcrnrlon=180, resolution="c") 
+m.drawcoastlines() 
+m.fillcontinents(color="#FFDDCC", lake_color="#DDEEFF") 
+m.drawmapboundary(fill_color="#DDEEFF") 
+ x,y = m(lons, lats) 
+cmap = plt.get_cmap("hot") 
+colors = [cmap(i / max(mags)) for i in mags] 
+m.scatter(x, y, marker="o", c=colors, s=[i * 15 for i in mags], alpha=0.75) 
+plt.colorbar(label="Magnitude") 
+plt.title("Historical Earthquake Data") 
+plt.show() 
+Out[18]: 
+
+ 
+Features Engineering : 
+It is a crucial aspect of predicting earthquake model using machine learning. It involves creating new features, transforming existing ones, and selecting the most relevant variables to improve the model’s predictive power. Here are some feature engineering ideas for earthquake prediction. 
+1. Auto-recognition of diurnal periodic waveform:                  These are electromagnetic disturbances (ED) that synchronize with sunrise and sunset. They can be used to filter out the background noise and focus on the anomalous signals that may precede earthquakes.  2. Higuchi Fractal Dimension:                  This is a measure of the complexity or irregularity of a time series. It can be used to capture the non-linear features of ED data and quantify the degree of chaos or order in the system. A higher fractal dimension indicates a more chaotic system, which may imply a higher probability of earthquake occurrence.  3. Sliding interquartile range:                  This is a robust measure of variability or dispersion in a time series. It can be used to detect outliers or spikes in ED data that may indicate seismic precursors. 4. Gutenberg-Richter Law:                  This is a statistical law that relates the frequency and magnitude of earthquakes in a given region. It can be used to estimate the 
+probability of occurrence and the expected magnitude of future earthquakes based on historical seismic events. 5. Geo- sound:                  This is the sound generated by the movement of tectonic plates or faults. It can be measured by microphones or acoustic sensors and can provide information about the stress state and deformation of the crust. 
+Various features of perform model training : 
+1. Seismic waveforms: These are the signals recorded by seismometers that measure the ground motion caused by earthquakes. They can be used to extract features such as amplitude, frequency, duration, phase, and polarity of the waves, which can indicate the location, magnitude, and mechanism of the earthquake. Seismic waveforms can also be transformed into different domains, such as time-frequency, wavelet, or spectral, to capture more information. 
+2. Earthquake catalog: This is a collection of historical earthquake data that includes parameters such as date, time, latitude, longitude, depth, magnitude, and fault type of each event. Earthquake catalog can be used to analyze the spatial and temporal patterns of seismic activity, such as clustering, recurrence intervals, and aftershock sequences. Earthquake catalog can also be used to estimate the probability and expected magnitude of future earthquakes based on statistical models, such as the Gutenberg-Richter law or the Poisson distribution.  
+3. Geological features: These are the characteristics of the earth’s crust and mantle that affect the generation and propagation of seismic waves. Geological features include parameters such as rock type, density, porosity, permeability, elasticity, 
+viscosity, and stress state. Geological features can be derived from various sources, such as borehole logs, geophysical surveys, or satellite imagery. Geological features can be used to model the structure and dynamics of the earth’s interior and to simulate the ground motion at specific locations or regions. 
+4. Environmental factors: These are the external factors that may have an impact on earthquake occurrence or detection. Environmental factors include parameters such as temperature, pressure, humidity, precipitation, wind speed, solar radiation, and geomagnetic field. Environmental factors can be measured by various sensors or instruments, such as thermometers, barometers, hygrometers, rain gauges, anemometers, pyranometers, and magnetometers. Environmental factors can be used to identify potential precursors or anomalies that may indicate seismic activity or to filter out noise or interference in seismic data. 
+ Conclusion : 
+? Earthquake prediction is a challenging and important task that aims to forecast the occurrence, location, magnitude, and impact of future earthquakes based on various types of data and models. 
+ ? Earthquake prediction can help reduce the loss of life and property, improve the preparedness and resilience of communities, and advance the scientific understanding of the earth’s processes.  
+
+ 
+
+
+
+ 
+
+
